@@ -1,0 +1,16 @@
+[gui]
+	recentrepo = /Users/paris/git_code/ruby/algorithms
+[user]
+	name = Peter Aronoff
+	email = telemachus@arpinum.org
+[color]
+	ui = auto
+[branch]
+	autosetupmerge = true
+[github]
+	user = telemachus
+	token = 0b234853d2c10d042785b612c65f3bdf
+[alias]
+	retrack = "!retrack() { git config \"branch.$1.remote\" $(dirname \"$2\"); git config \"branch.$1.merge\" \"refs/heads/$(basename \"$2\")\"; }; retrack"
+[core]
+	editor = mvim -f
