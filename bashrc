@@ -2,9 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# If not running interactively, don't do anything
-[[ -z "$PS1" ]] && return
-
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 
@@ -19,48 +16,59 @@ shopt -s checkwinsize
 set -o vi
 
 # Use CDPATH to make life better
-export CDPATH='.:~/git_code:~'
+export CDPATH=.:$HOME:$HOME/projects
 
 # Set TERM and CLICOLOR for purty colors
 export TERM=xterm-color
 export CLICOLOR=1
 
 # set editor for SVN and other programs
-export SVN_EDITOR=/opt/local/bin/vim
-export EDITOR=/opt/local/bin/vim
+export SVN_EDITOR=vim
+export EDITOR=vim
 
 # include .bash_aliases if it exists
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+  source $HOME/.bash_aliases
 fi
 
 # include .bash_functions if it exists
-if [ -f ~/.bash_functions ]; then
-  . ~/.bash_functions
+if [ -f $HOME/.bash_functions ]; then
+  source $HOME/.bash_functions
 fi
 
 # include .bash_path if it exists
-if [ -f ~/.bash_path ]; then
-  . ~/.bash_path
+if [ -f $HOME/.bash_path ]; then
+  source $HOME/.bash_path
 fi
 
 # include .bash_completion from MacPorts
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    source `brew --prefix`/etc/bash_completion
 fi
 
 # include .git-completion.sh
-if [ -f ~/.git-completion.sh ]; then
-    . ~/.git-completion.sh
+if [ -f $HOME/.git-completion.sh ]; then
+    source $HOME/.git-completion.sh
 fi
 
 # include .amazon_keys
-if [ -f ~/.amazon_keys ]; then
-    . ~/.amazon_keys
+if [ -f $HOME/.amazon_keys ]; then
+    source $HOME/.amazon_keys
+fi
+
+# rvm
+if [ -s $HOME/.rvm/scripts/rvm ]; then
+    source $HOME/.rvm/scripts/rvm
 fi
 
 # color prompt
-PS1='\[\033[01;32m\]\u \W$(__git_ps1 " (%s)") \$ \[\033[00m\]'
+#PS1='\[\e[01;31m\]\u \W\[\e[00m\]\[\e[0;33m\]$(__git_ps1 " (%s)")\[\e[00m\] \[\e[01;31m\]\$ \[\e[00m\]'
+red='\[\e[01;31m\]'
+yellow='\[\e[01;33m\]'
+end='\[\e[m\]'
+gps='$(__git_ps1 " (%s)")'
+PS1="${red}\u \W${end}${yellow}${gps}${end} ${red}\$${end} "
+
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -71,8 +79,8 @@ xterm*|rxvt*)
     ;;
 esac
 
-# go environment variables
-export GOROOT="$HOME/source/go"
-export GOOS="darwin"
-export GOARCH="386"
-export GOBIN="$HOME/bin"
+# source perlbrew
+export PERLBREW_ROOT=$HOME/.perl5/perlbrew
+if [ -f $HOME/.perl5/perlbrew/etc/bashrc ]; then
+    source $HOME/.perl5/perlbrew/etc/bashrc
+fi
