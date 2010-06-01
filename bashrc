@@ -13,7 +13,8 @@ shopt -s checkwinsize
 ##[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
 # gimme Vim bindings
-set -o vi
+# Learn the damn Emacs bindings at least a little
+set -o emacs
 
 # Use CDPATH to make life better
 export CDPATH=.:$HOME:$HOME/projects
@@ -63,8 +64,8 @@ fi
 
 # color prompt
 #PS1='\[\e[01;31m\]\u \W\[\e[00m\]\[\e[0;33m\]$(__git_ps1 " (%s)")\[\e[00m\] \[\e[01;31m\]\$ \[\e[00m\]'
-red='\[\e[01;31m\]'
-yellow='\[\e[01;33m\]'
+red='\[\e[00;31m\]'
+yellow='\[\e[00;33m\]'
 end='\[\e[m\]'
 gps='$(__git_ps1 " (%s)")'
 PS1="${red}\u \W${end}${yellow}${gps}${end} ${red}\$${end} "
@@ -84,3 +85,9 @@ export PERLBREW_ROOT=$HOME/.perl5/perlbrew
 if [ -f $HOME/.perl5/perlbrew/etc/bashrc ]; then
     source $HOME/.perl5/perlbrew/etc/bashrc
 fi
+export PERL_CPANM_OPT="--mirror file:///Users/telemachus/.minicpan\
+    --mirror http://cpan.cpantesters.org"
+
+# less configuration
+LESS='-j5GJx4P?f[%f] - ?pt[%pt\%] '
+export LESS
