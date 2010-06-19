@@ -10,7 +10,7 @@ export HISTCONTROL=ignoredups
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-##[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+#[[ -x /usr/local/bin/lesspipe ]] && eval "$(lesspipe)"
 
 # gimme Vim bindings
 # Learn the damn Emacs bindings at least a little
@@ -23,8 +23,11 @@ export CDPATH=.:$HOME:$HOME/projects
 export TERM=xterm-color
 export CLICOLOR=1
 
-# set editor for SVN and other programs
+# set editor for svn and git
 export SVN_EDITOR=vim
+export GIT_EDITOR='mvim -f -c"au VimLeave * !open -a Terminal"'
+
+# default editor otherwise is vim
 export EDITOR=vim
 
 # include .bash_aliases if it exists
@@ -88,6 +91,17 @@ fi
 export PERL_CPANM_OPT="--mirror file:///Users/telemachus/.minicpan\
     --mirror http://cpan.cpantesters.org"
 
+# force man to respect my damn less settings
+MANPAGER=less
+export MANPAGER
+
 # less configuration
-LESS='-j5GJx4P?f[%f] - ?pt[%pt\%] '
+LESS='-GRJx4P?f[%f]:[STDIN].?pB - [%pB\%]:\.\.\..'
 export LESS
+
+# lesspipe
+LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+export LESSOPEN
+
+# options for jeweler
+export JEWELER_OPTS="--minitest --gemcutter --yard"
