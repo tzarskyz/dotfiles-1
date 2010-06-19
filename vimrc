@@ -96,7 +96,7 @@ imap ,perl #!/usr/bin/env perl<CR>use strict;
     \<CR>use warnings;<CR><esc>:set filetype=perl<ENTER>i
 "
 " Check for templates at start up
-:autocmd BufNewFile *.html 0r ~/.vim/templates/html.tpl
+:autocmd BufNewFile *.html silent! 0r ~/.vim/templates/html.tpl
 
 " Tell Vim to print using US-sized paper, not A4
 set printoptions:paper:letter
