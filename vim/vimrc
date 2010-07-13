@@ -1,14 +1,21 @@
+filetype off
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 " Most general settings first
-set nocompatible 	        " Set Vim rather than Vi settings; must go first
-set noeb 		            " Set no audio or visual error beep
+set nocompatible            " Set Vim rather than Vi settings; must go first
+set noeb                    " Set no audio or visual error beep
 set bs=indent,eol,start     " Backspace over everything in insert mode
-set history=500		        " Keep 50 lines of command line history
+set history=500	            " Keep 50 lines of command line history
 
 " Set items for view @ bottom of windows
 set ruler                   " Show the cursor position all the time
 set showcmd                 " Display incomplete commands
 set showmode                " Display current mode
 set ls=2                    " Always show status bar
+
+" Remove overbright matching of parentheses
+let g:loaded_matchparen = 1
 
 " Syntax basics
 syntax on
@@ -18,42 +25,15 @@ set smartindent
 filetype plugin on
 
 " Text basics
-set textwidth=80            " Set text to wrap at 80 columns
-set expandtab				" Convert tabs to spaces
-set tabstop=4               " Tabs = 4 spaces 
-set shiftwidth=4            " Indent/outdent 4 spaces
-set softtabstop=4           " Tab key indents 
-set shiftround              " Indent/outdent to nearest tabstop
-set smarttab                " Uses shiftwidth @ start of lines
-set fo=trcn
-
-" An exception for Ruby files
-autocmd FileType ruby set tabstop=2
-autocmd FileType ruby set shiftwidth=2
-autocmd FileType ruby set softtabstop=2
-
-" Syntax for HTML files
-autocmd FileType html set tabstop=2
-autocmd FileType html set shiftwidth=2
-autocmd FileType html set softtabstop=2
-autocmd FileType html set fo=tcroqn
-autocmd FileType html set wrap linebreak textwidth=0
-
-" Syntax for CSS files
-autocmd FileType css set tabstop=2
-autocmd FileType css set shiftwidth=2
-autocmd FileType css set softtabstop=2
-autocmd FileType css set fo=tcroqn
-autocmd FileType css set wrap linebreak textwidth=0
-
-" Syntax for JSON files
-autocmd FileType json set fo=tcroq
-autocmd FileType json set wrap linebreak textwidth=0
+set textwidth=75            " Set text to wrap at 75 columns
 
 " Search basics
 set incsearch               " Do incremental searching
-set showmatch               " Show matching brackets
 set hlsearch                " Highlight all matches in a search
+
+" Matchy match
+"set showmatch               " Show matching brackets
+set matchtime=1             " But turn it off quickly
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -61,22 +41,8 @@ map Q gq
 " Enable mouse
 set mouse=a
 
-" Use IR_BLACK for my colorscheme
-colorscheme ir_black
-
-" Add matching brackets for Perl
-autocmd FileType perl set showmatch
-autocmd FileType perl set matchpairs+=<:>
-
-" Show line numbers in Perl, Ruby and C
-autocmd FileType perl set number
-autocmd FileType ruby set number
-autocmd FileType c    set number
-autocmd FileType html set number
-
-" Add more Markdown support
-autocmd FileType mkd set ai formatoptions=tcroqn comments=n:>
-autocmd FileType mkd set wrap linebreak textwidth=0
+" Use Dim for my colorscheme
+colorscheme twilight
 
 " Make tab in v-mode indent code
 vmap <tab> >gv
@@ -88,15 +54,15 @@ nmap <s-tab> ^i<bs><esc>
 
 " Fix placement of backups and swap files
 set backup
-set backupdir=/Users/paris/.vim_backups,/tmp
-set directory=/tmp,/Users/paris/.vim_backups
+set backupdir=$HOME/.vim_backups,/tmp
+set directory=/tmp,$HOME/.vim_backups
 
 " Some Perl voodoo: insert Perl base & set filetype
 imap ,perl #!/usr/bin/env perl<CR>use strict;
     \<CR>use warnings;<CR><esc>:set filetype=perl<ENTER>i
 "
 " Check for templates at start up
-:autocmd BufNewFile *.html silent! 0r ~/.vim/templates/html.tpl
+autocmd! BufNewFile * silent! 0r $HOME/.vim/templates/tpl.%:e
 
 " Tell Vim to print using US-sized paper, not A4
 set printoptions:paper:letter
@@ -115,3 +81,42 @@ nmap <silent> <leader>n :silent :nohlsearch<CR>
 set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 set shortmess=atI
+nmap <silent> <leader>p :set invpaste<CR>
+nmap <silent> <leader>d :NERDTreeToggle<CR>
+
+inoremap kj <Esc>
+let g:liquid_highlight_types=["html","erb=eruby","html+erb=eruby.html"]
+
+let g:closetag_html_style=1
+"source $HOME/.vim/bundle/vim-varia/plugin/closetag.vim
+
+" status line hijinks
+set statusline=%<%f\ %h%m%r%y
+\%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+\%{exists('g:loaded_rvm')?rvm#statusline_ft_ruby():''}
+\%{&filetype=='perl'?'['.system($perlv).']':''}
+\%=%-14.(%l,%c%V%)\ %P
+
+"let g:delimitMate_expand_space=1
+" Uncomment on a MacBook
+"set t_ku=[A
+"set t_kd=[B
+"set t_kr=[C
+"set t_kl=[D
+
+" Modeline experiment
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d :",
+        \ &tabstop, &shiftwidth, &textwidth)
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
