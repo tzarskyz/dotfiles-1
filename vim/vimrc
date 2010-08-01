@@ -7,6 +7,11 @@ set nocompatible            " Set Vim rather than Vi settings; must go first
 set noeb                    " Set no audio or visual error beep
 set bs=indent,eol,start     " Backspace over everything in insert mode
 set history=500	            " Keep 50 lines of command line history
+set scrolloff=3             " A little breathing room
+if !has('gui')
+    set undofile            " Test the persistent unto feature
+    set undodir=$HOME/.vim_undo,/tmp
+endif
 
 " Set items for view @ bottom of windows
 set ruler                   " Show the cursor position all the time
@@ -26,6 +31,10 @@ filetype plugin on
 
 " Text basics
 set textwidth=75            " Set text to wrap at 75 columns
+set tabstop=4               " A reasonable set of tab defaults
+set softtabstop=4
+set shiftwidth=4
+set expandtab               " Use spaces for tabs
 
 " Search basics
 set incsearch               " Do incremental searching
@@ -42,7 +51,7 @@ map Q gq
 set mouse=a
 
 " Use Dim for my colorscheme
-colorscheme twilight
+colorscheme Dim
 
 " Make tab in v-mode indent code
 vmap <tab> >gv
@@ -66,15 +75,14 @@ autocmd! BufNewFile * silent! 0r $HOME/.vim/templates/tpl.%:e
 
 " Tell Vim to print using US-sized paper, not A4
 set printoptions:paper:letter
+" Easier way to get into normal mode?
+imap jk <Esc>
 
 " Stuff from here: http://tuxtraining.com/2008/11/11/exploring-vim-configurations
 set hidden
 nnoremap ' `
 nnoremap ` '
 let mapleader = ","
-runtime macros/matchit.vim
-set wildmenu
-set wildmode=list:longest
 set title
 set scrolloff=3
 nmap <silent> <leader>n :silent :nohlsearch<CR>
@@ -82,7 +90,6 @@ set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 set shortmess=atI
 nmap <silent> <leader>p :set invpaste<CR>
-nmap <silent> <leader>d :NERDTreeToggle<CR>
 
 inoremap kj <Esc>
 let g:liquid_highlight_types=["html","erb=eruby","html+erb=eruby.html"]
@@ -94,7 +101,7 @@ let g:closetag_html_style=1
 set statusline=%<%f\ %h%m%r%y
 \%{exists('g:loaded_fugitive')?fugitive#statusline():''}
 \%{exists('g:loaded_rvm')?rvm#statusline_ft_ruby():''}
-\%{&filetype=='perl'?'['.system($perlv).']':''}
+\%{exists('g:loaded_perlbrew')?perlbrew#statusline_ft_perl():''}
 \%=%-14.(%l,%c%V%)\ %P
 
 "let g:delimitMate_expand_space=1
