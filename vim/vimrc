@@ -90,6 +90,7 @@ set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 set shortmess=atI
 nmap <silent> <leader>p :set invpaste<CR>
+imap <C-l> =><Space>
 
 inoremap kj <Esc>
 let g:liquid_highlight_types=["html","erb=eruby","html+erb=eruby.html"]
@@ -99,9 +100,9 @@ let g:closetag_html_style=1
 
 " status line hijinks
 set statusline=%<%f\ %h%m%r%y
+\%{exists('g:loaded_perlbrew')?PerlFilesPerlVersion():''}
+\%{exists('g:loaded_rvm')?Rvm#statusline_ft_ruby():''}
 \%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-\%{exists('g:loaded_rvm')?rvm#statusline_ft_ruby():''}
-\%{exists('g:loaded_perlbrew')?perlbrew#statusline_ft_perl():''}
 \%=%-14.(%l,%c%V%)\ %P
 
 "let g:delimitMate_expand_space=1
