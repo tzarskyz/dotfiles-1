@@ -41,7 +41,7 @@ set incsearch               " Do incremental searching
 set hlsearch                " Highlight all matches in a search
 
 " Matchy match
-"set showmatch               " Show matching brackets
+"set showmatch              " Show matching brackets
 set matchtime=1             " But turn it off quickly
 
 " Don't use Ex mode, use Q for formatting
@@ -85,7 +85,7 @@ nnoremap ` '
 let mapleader = ","
 set title
 set scrolloff=3
-nmap <silent> <leader>n :silent :nohlsearch<CR>
+nmap <silent> <leader>n :nohlsearch<CR>
 set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 set shortmess=atI
@@ -93,10 +93,9 @@ nmap <silent> <leader>p :set invpaste<CR>
 imap <C-l> =><Space>
 
 inoremap kj <Esc>
-let g:liquid_highlight_types=["html","erb=eruby","html+erb=eruby.html"]
-
-let g:closetag_html_style=1
-"source $HOME/.vim/bundle/vim-varia/plugin/closetag.vim
+let g:liquid_highlight_types = ["html","erb=eruby","html+erb=eruby.html"]
+let g:closetag_html_style = 1
+let g:delimitMate_excluded_regions = "Comment,String"
 
 " status line hijinks
 set statusline=%<%f\ %h%m%r%y
@@ -105,7 +104,6 @@ set statusline=%<%f\ %h%m%r%y
 \%{exists('g:loaded_fugitive')?fugitive#statusline():''}
 \%=%-14.(%l,%c%V%)\ %P
 
-"let g:delimitMate_expand_space=1
 " Uncomment on a MacBook
 "set t_ku=[A
 "set t_kd=[B
