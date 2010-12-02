@@ -1,0 +1,157 @@
+MAILDIR=$HOME/.maildir/
+LOGFILE=$HOME/.procmaillog
+VERBOSE=no
+
+# Filter for Dimdim spam
+:0:
+* ^From:.*dimdim.com
+ Spam/
+
+# Filter for USAA mail
+:0:
+* ^From:.*USAA
+ Inbox/
+
+# Filter for Ruby Core
+:0:
+* ^From:.*ruby-core@ruby-lang.org
+ Ruby-Core/
+
+# Second filter for Ruby Core
+:0:
+* ^To:.*ruby-core@ruby-lang.org
+ Ruby-Core/
+
+# Third filter for Ruby Core
+:0:
+* ^CC:.*ruby-core@ruby-lang.org
+ Ruby-Core/
+
+# Filter for Ruby Weekly
+:0:
+* ^From:.*rw@peterc.org
+ Ruby/
+
+# Filter for Practicing Ruby
+:0:
+* ^From:.*Gregory.Brown@letter.ly
+ Ruby/
+ 
+# # Filter for Perl mail lists
+# :0:
+# * ^From:.*perl.org
+ # Perl/
+# 
+# # Second filter for Perl mail lists
+# :0:
+# * ^To:.*perl.org
+ # Perl/
+# 
+# # Third filter for Perl mail lists
+# :0:
+# * ^Resent-From:.*perl.org
+ # Perl/
+# 
+# # Fourth filter for Perl mail lists
+# :0:
+# * ^CC:.*perl.org
+ # Perl/
+# 
+# # Filter for Haskell mail lists
+# :0:
+# * ^From:.*haskell.org
+ # Haskell/
+# 
+# # Second filter for Haskell mail lists
+# :0:
+# * ^To:.*haskell.org
+ # Haskell/
+# 
+# # Third filter for Haskell mail lists
+# :0:
+# * ^Resent-From:.*haskell.org
+ # Haskell/
+# 
+# # Fourth filter for Haskell mail lists
+# :0:
+# * ^CC:.*haskell.org
+ # Haskell/
+
+# Filter for Debian mail lists
+:0:
+* ^From:.*debian.org
+ Debian/
+
+# Second filter for Debian mail lists
+:0:
+* ^To:.*debian.org
+ Debian/
+
+# Third filter for Debian mail lists
+:0:
+* ^Resent-From:.*debian.org
+ Debian/
+
+# Filter to jmail
+:0:
+* ^From:.*rios.joanna@gmail.com
+Jmail/
+
+
+# Second filter to jmail
+:0:
+* ^From:.*poniso@hotmail.com
+Jmail/
+
+# Filter for Aronoff stuff
+:0:
+* ^From:.*aronoff.org
+Aronoff/
+
+# Filter for Ethan
+:0:
+* ^From:.*earonoff@ca.rr.com
+Aronoff/
+
+# Filter for Howie
+:0:
+* ^From:.*howie@aronoff.org
+Aronoff/
+
+# Filter for Mick 
+:0:
+* ^From:.*ma@ciic.com
+ Aronoff/
+
+# Filter for Nancy
+:0:
+* ^From:.*naronoff
+Aronoff/
+
+# Filter two for Nancy
+:0:
+* ^From:.*nancysacks
+Aronoff/
+
+# Filter three for Nancy
+:0:
+* ^From:.*sacks
+Aronoff/
+
+:0 fhw 
+* ^X-Spam-Status: Yes
+Spam/
+
+# Serious spam is moved to "/dev/null". 
+:0: 
+* ^X-Spam-Level: \*\*\*\*\*\*\*\*\*\* 
+/dev/null
+
+# Another spam filter
+:0:
+* ^Subject:.****SPAM
+Spam/
+
+# All other mail goes to inbox
+:0:
+ Inbox/
