@@ -1,0 +1,8 @@
+Host *
+    Compression yes
+    CompressionLevel 7
+    Cipher blowfish
+    ServerAliveInterval 600
+    ServerAliveCountMax 1000
+    ControlMaster auto
+    ControlPath /tmp/ssh-%r@%h:%p
