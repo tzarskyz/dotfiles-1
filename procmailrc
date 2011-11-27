@@ -2,95 +2,60 @@ MAILDIR=$HOME/.maildir/
 LOGFILE=$HOME/.procmaillog
 VERBOSE=no
 
-# Filter for Dimdim spam
+# Filter for Ruby Core
 :0:
-* ^From:.*dimdim.com
- Spam/
+* ^(From|To|Reply-To|CC):.*ruby-core.*@ruby-lang.org
+Ruby-Core/
 
 # Filter for USAA mail
 :0:
 * ^From:.*USAA
- Inbox/
+Inbox/
 
-# Filter for Ruby Core
+# Filter for Learn C the Hard Way
 :0:
-* ^From:.*ruby-core@ruby-lang.org
- Ruby-Core/
+* ^To:.*lcthw@librelist.com
+LearnC/
 
-# Second filter for Ruby Core
+# Filter for Unix-Ruby
 :0:
-* ^To:.*ruby-core@ruby-lang.org
- Ruby-Core/
-
-# Third filter for Ruby Core
-:0:
-* ^CC:.*ruby-core@ruby-lang.org
- Ruby-Core/
+* ^(From|To):.*usp.ruby@librelist.org
+Ruby-Unix/
 
 # Filter for Ruby Weekly
 :0:
 * ^From:.*rw@peterc.org
- Ruby/
+Ruby/
+
+# Filter for HTML5 Weekly
+:0:
+* ^From:.*@html5weekly.com
+HTML5/
 
 # Filter for Practicing Ruby
 :0:
-* ^From:.*Gregory.Brown@letter.ly
- Ruby/
- 
-# # Filter for Perl mail lists
-# :0:
-# * ^From:.*perl.org
- # Perl/
-# 
-# # Second filter for Perl mail lists
-# :0:
-# * ^To:.*perl.org
- # Perl/
-# 
-# # Third filter for Perl mail lists
-# :0:
-# * ^Resent-From:.*perl.org
- # Perl/
-# 
-# # Fourth filter for Perl mail lists
-# :0:
-# * ^CC:.*perl.org
- # Perl/
-# 
+* ^(From|Reply-To):.*gregory_brown@letterboxes.org
+Ruby/
+
+# Filter for JavaScript Weekly
+:0:
+* ^(From|Reply-To).*jsw@peterc.org
+Javascript/
+
+# Filter for Homebrew
+:0:
+* ^(To|Reply-To):.*homebrew@librelist.com
+Homebrew/
+
 # # Filter for Haskell mail lists
 # :0:
-# * ^From:.*haskell.org
- # Haskell/
-# 
-# # Second filter for Haskell mail lists
-# :0:
-# * ^To:.*haskell.org
- # Haskell/
-# 
-# # Third filter for Haskell mail lists
-# :0:
-# * ^Resent-From:.*haskell.org
- # Haskell/
-# 
-# # Fourth filter for Haskell mail lists
-# :0:
-# * ^CC:.*haskell.org
+# * ^(From|To|Resent-From|CC):.*haskell.org
  # Haskell/
 
 # Filter for Debian mail lists
 :0:
-* ^From:.*debian.org
- Debian/
-
-# Second filter for Debian mail lists
-:0:
-* ^To:.*debian.org
- Debian/
-
-# Third filter for Debian mail lists
-:0:
-* ^Resent-From:.*debian.org
- Debian/
+* ^(From|To|Resent-From):.*debian.org
+Debian/
 
 # Filter to jmail
 :0:
@@ -118,10 +83,10 @@ Aronoff/
 * ^From:.*howie@aronoff.org
 Aronoff/
 
-# Filter for Mick 
+# Filter for Mick
 :0:
 * ^From:.*ma@ciic.com
- Aronoff/
+Aronoff/
 
 # Filter for Nancy
 :0:
@@ -138,13 +103,13 @@ Aronoff/
 * ^From:.*sacks
 Aronoff/
 
-:0 fhw 
+:0 hw
 * ^X-Spam-Status: Yes
 Spam/
 
-# Serious spam is moved to "/dev/null". 
-:0: 
-* ^X-Spam-Level: \*\*\*\*\*\*\*\*\*\* 
+# Serious spam is moved to /dev/null
+:0:
+* ^X-Spam-Level: \*\*\*\*\*\*\*\*\*\*
 /dev/null
 
 # Another spam filter
@@ -154,4 +119,4 @@ Spam/
 
 # All other mail goes to inbox
 :0:
- Inbox/
+Inbox/
