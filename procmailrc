@@ -12,10 +12,10 @@ Ruby-Core/
 * ^From:.*USAA
 Inbox/
 
-# Filter for Learn C the Hard Way
+# Filter for Lua mailing list
 :0:
-* ^To:.*lcthw@librelist.com
-LearnC/
+* ^(From|To|Reply-To|CC):.*lists.lua.org
+Lua/
 
 # Filter for Unix-Ruby
 :0:
