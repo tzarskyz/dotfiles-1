@@ -17,6 +17,10 @@ Inbox/
 * ^(From|To|Reply-To|CC):.*lists.lua.org
 Lua/
 
+# Second Lua list filter
+* ^(From|To|Reply-To|CC):.*stefans.lua.list@librelist.com
+Lua/
+
 # Filter for Unix-Ruby
 :0:
 * ^(From|To):.*usp.ruby@librelist.org
