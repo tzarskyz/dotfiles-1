@@ -26,9 +26,14 @@ $copy $verbose "$HOME/.passes_list" "$temporary/passes_list"
 $copy $verbose "$HOME/.procmaillog" "$temporary/procmaillog"
 $copy $verbose "$HOME/.pwsafe.dat" "$temporary/pwsafe.dat"
 $copy $verbose "$HOME/.rnd" "$temporary/rnd"
+$copy $verbose "$HOME/Documents/Solarized Dark.terminal" \
+    "$temporary/Solarized Dark.terminal"
+$copy $verbose "$HOME/Documents/IR_Black_Mine.terminal" \
+    "$temporary/IR_Black_Mine.terminal"
 $copy $verbose "$HOME/Library/LaunchAgents/com.achilles.clean.plist" \
     "$temporary/com.achilles.clean.plist"
 $copy $verbose "$HOME/Library/LaunchAgents/com.achilles.mailcheck.plist" \
     "$temporary/com.achilles.mailcheck.plist"
 
 tar $verbose zcf "$HOME/move.tar.gz" -C "$temporary" .
+rm -rf "$temporary"
